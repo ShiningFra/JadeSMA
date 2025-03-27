@@ -36,5 +36,14 @@ public class AgentReactifSimple extends Agent {
                 }
             }
         });
+        // écrivons une fonction pour percevoir
+        addBehaviour(new TickerBehaviour(this, 3000) {
+            protected void onTick() {
+                ACLMessage message = new ACLMessage(ACLMessage.INFORM);
+                message.setContent("getState");
+                message.addReceiver(getAID("environnement"));
+                send(message);
+            }
+        });
     }
 }

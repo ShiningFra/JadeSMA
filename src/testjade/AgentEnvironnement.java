@@ -29,11 +29,11 @@ public class AgentEnvironnement extends Agent {
             protected void onTick() {
                 if(state > 0) {
                     System.out.println(getLocalName() + " : Le sol est sale ...");
-                    ACLMessage message = new ACLMessage(ACLMessage.INFORM);
+                    /* ACLMessage message = new ACLMessage(ACLMessage.INFORM);
                     message.setContent(state.toString());
                     // message.addReceiver(getAID("agentReactifSimple"));
                     message.addReceiver(getAID("agentDUtilite"));
-                    send(message);
+                    send(message);*/
                 } else {
                     System.out.println(getLocalName() + " : Le sol est propre ...");
                 }
@@ -48,6 +48,11 @@ public class AgentEnvironnement extends Agent {
                     clean();
                 } else if (msg.getContent().equals("Trash")){
                     trash();
+                }else if (msg.getContent().equals("getState")){
+                    ACLMessage message = new ACLMessage(ACLMessage.INFORM);
+                    message.addReceiver(msg.getSender());
+                    message.setContent(state.toString());
+                    send(message);
                 }} else {
                     block();
                 }
